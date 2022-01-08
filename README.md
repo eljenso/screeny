@@ -2,10 +2,11 @@
 
 > Small web page for creating screencasts
 
-This project avoid using external dependencies to keep it trivial.
-
 While the user has the page open, no requests to any server are made:
 The recording will not leave the user's computer.
+
+This project avoid using external dependencies to keep it trivial and easy to review.
+All packages listed in `package.json` are for development only.
 
 #### Attributions
 
