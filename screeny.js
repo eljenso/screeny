@@ -35,17 +35,23 @@ async function startCapture() {
 
     // Providing the recording as download to user
     // Will be called once the user stops the recording
-    mediaRecorder.ondataavailable = (event) => download(event.data);
+    mediaRecorder.ondataavailable = (event) => {
+      download(event.data);
+      resetUI();
+    };
   } catch (err) {
     console.error("Error: " + err);
   }
 }
 
-// FIXME: check for user stopping recording without using this button
 function stopCapture() {
   // Stop the capture (will indirectly trigger ondataavailable of MediaRecorder)
   captureStream.getTracks().map((track) => track.stop());
 
+  resetUI();
+}
+
+function resetUI() {
   startButton.disabled = false;
   stopButton.disabled = true;
 
