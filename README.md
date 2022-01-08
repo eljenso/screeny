@@ -9,4 +9,4 @@ The recording will not leave the user's computer.
 
 #### Attributions
 
-Icon image [Twemoji]([asd](https://twemoji.twitter.com/))
+Icon image [Twemoji](https://twemoji.twitter.com/)
