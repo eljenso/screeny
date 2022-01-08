@@ -1,6 +1,3 @@
-let captureStream = null;
-// const recordedChunks = [];
-
 // Set event listeners for the start and stop buttons
 const startElem = document.getElementById("start");
 startElem.addEventListener("click", () => {
@@ -14,8 +11,11 @@ stopElem.addEventListener("click", () => {
 
 const videoElem = document.getElementById("video");
 
+let captureStream = null;
+
 async function startCapture() {
   try {
+    //
     captureStream = await navigator.mediaDevices.getDisplayMedia({
       // TODO: Check options
       video: {
@@ -30,22 +30,21 @@ async function startCapture() {
     const mediaRecorder = new MediaRecorder(captureStream, {
       mimeType: "video/webm",
     });
-    // Will be called once the user stops the recording
-    mediaRecorder.ondataavailable = (event) => {
-      download(event.data);
-    };
-
     mediaRecorder.start();
+
+    // Providing the recording as download to user
+    // Will be called once the user stops the recording
+    mediaRecorder.ondataavailable = (event) => download(event.data);
   } catch (err) {
     console.error("Error: " + err);
   }
 }
 
+// FIXME: check for user stopping recording without using this button
 function stopCapture() {
-  let tracks = videoElem.srcObject.getTracks();
-  tracks.forEach((track) => track.stop());
+  // Stop the capture (will indirectly trigger ondataavailable of MediaRecorder)
+  captureStream.getTracks().map((track) => track.stop());
 
-  //
   videoElem.srcObject = null;
   captureStream = null;
 }
@@ -54,16 +53,18 @@ function download(recordedChunk) {
   // FIXME: Add date to filename
   const filename = "test.webm";
 
-  const blob = new Blob([recordedChunk], {
-    type: "video/webm",
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const url = URL.createObjectURL(
+    new Blob([recordedChunk], {
+      type: "video/webm",
+    })
+  );
 
-  document.body.appendChild(a);
+  const a = document.createElement("a");
   a.style = "display: none";
   a.href = url;
   a.download = filename;
+
+  document.body.appendChild(a);
   a.click();
 
   window.URL.revokeObjectURL(url);
