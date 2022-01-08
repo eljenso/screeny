@@ -1,47 +1,70 @@
-const videoElem = document.getElementById("video");
-const logElem = document.getElementById("log");
-const startElem = document.getElementById("start");
-const stopElem = document.getElementById("stop");
-
-let captureStream = null
-
-// Options for getDisplayMedia()
-
-const displayMediaOptions = {
-  video: {
-    cursor: "always"
-  },
-  audio: false
-};
+let captureStream = null;
+// const recordedChunks = [];
 
 // Set event listeners for the start and stop buttons
-startElem.addEventListener("click", function (evt) {
+const startElem = document.getElementById("start");
+startElem.addEventListener("click", () => {
   startCapture();
-}, false);
+});
 
-stopElem.addEventListener("click", function (evt) {
+const stopElem = document.getElementById("stop");
+stopElem.addEventListener("click", () => {
   stopCapture();
-}, false);
+});
 
-async function startCapture(displayMediaOptions) {
+const videoElem = document.getElementById("video");
 
-
+async function startCapture() {
   try {
-    captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
-    videoElem.srcObject = captureStream
+    captureStream = await navigator.mediaDevices.getDisplayMedia({
+      // TODO: Check options
+      video: {
+        cursor: "always",
+      },
+      audio: false,
+    });
+
+    videoElem.srcObject = captureStream;
+
+    // Record the screen/window the user selected
+    const mediaRecorder = new MediaRecorder(captureStream, {
+      mimeType: "video/webm",
+    });
+    // Will be called once the user stops the recording
+    mediaRecorder.ondataavailable = (event) => {
+      download(event.data);
+    };
+
+    mediaRecorder.start();
   } catch (err) {
     console.error("Error: " + err);
   }
-
 }
 
-function stopCapture(evt) {
+function stopCapture() {
   let tracks = videoElem.srcObject.getTracks();
+  tracks.forEach((track) => track.stop());
 
-  tracks.forEach(track => track.stop());
+  //
   videoElem.srcObject = null;
+  captureStream = null;
+}
 
-  console.log({ captureStream })
+function download(recordedChunk) {
+  // FIXME: Add date to filename
+  const filename = "test.webm";
 
-  captureStream = null
+  const blob = new Blob([recordedChunk], {
+    type: "video/webm",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  document.body.appendChild(a);
+  a.style = "display: none";
+  a.href = url;
+  a.download = filename;
+  a.click();
+
+  window.URL.revokeObjectURL(url);
 }
