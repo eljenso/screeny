@@ -1,15 +1,15 @@
 // Set event listeners for the start and stop buttons
-const startElem = document.getElementById("start");
-startElem.addEventListener("click", () => {
+const startButton = document.getElementById("startButton");
+startButton.addEventListener("click", () => {
   startCapture();
 });
 
-const stopElem = document.getElementById("stop");
-stopElem.addEventListener("click", () => {
+const stopButton = document.getElementById("stopButton");
+stopButton.addEventListener("click", () => {
   stopCapture();
 });
 
-const videoElem = document.getElementById("video");
+const videoElement = document.getElementById("video");
 
 let captureStream = null;
 
@@ -24,7 +24,7 @@ async function startCapture() {
       audio: false,
     });
 
-    videoElem.srcObject = captureStream;
+    videoElement.srcObject = captureStream;
 
     // Record the screen/window the user selected
     const mediaRecorder = new MediaRecorder(captureStream, {
@@ -45,7 +45,7 @@ function stopCapture() {
   // Stop the capture (will indirectly trigger ondataavailable of MediaRecorder)
   captureStream.getTracks().map((track) => track.stop());
 
-  videoElem.srcObject = null;
+  videoElement.srcObject = null;
   captureStream = null;
 }
 

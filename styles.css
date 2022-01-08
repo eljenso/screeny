@@ -1,0 +1,48 @@
+body {
+  height: 95vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 50px 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.recordControls {
+  display: flex;
+  justify-content: space-around;
+
+  margin-top: 50px;
+}
+
+.videoWrapper {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+video {
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  border: none;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 10px 32px;
+  font-size: 16px;
+}
+
+#startButton {
+  background-color: #6c98ff;
+}
+
+#stopButton {
+  background-color: #ff6c6c;
+}
+
+.credits {
+  margin-top: auto;
+  text-align: center;
+}

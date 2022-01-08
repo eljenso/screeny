@@ -5,18 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Screeny</title>
+
+    <link rel="stylesheet" href="./styles.css" />
   </head>
 
   <body>
-    <h3>Screeny</h3>
+    <div class="content">
+      <div class="recordControls">
+        <button id="startButton">Start Capture</button>
+        <button id="stopButton">Stop Capture</button>
+      </div>
 
-    <div>
-      <button id="start">Start Capture</button>
-      <button id="stop">Stop Capture</button>
+      <div class="videoWrapper">
+        <video id="video" autoplay></video>
+      </div>
+
+      <div class="credits">
+        Source code
+        <a href="https://github.com/eljenso/screeny">available on GitHub</a>
+      </div>
     </div>
-
-    <video id="video" autoplay></video>
-
-    <script src="./screeny.js"></script>
   </body>
+
+  <script src="./screeny.js"></script>
 </html>
