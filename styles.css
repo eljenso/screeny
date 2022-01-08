@@ -35,13 +35,22 @@ button {
   padding: 10px 32px;
   font-size: 16px;
 }
+button:disabled {
+  color: rgba(119, 119, 119, 0.95);
+}
 
 #startButton {
   background-color: #6c98ff;
 }
+#startButton:disabled {
+  background-color: #bfd2ff;
+}
 
 #stopButton {
   background-color: #ff6c6c;
+}
+#stopButton:disabled {
+  background-color: #ffc3c3;
 }
 
 .credits {

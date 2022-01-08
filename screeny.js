@@ -1,10 +1,11 @@
-// Set event listeners for the start and stop buttons
 const startButton = document.getElementById("startButton");
+const stopButton = document.getElementById("stopButton");
+
 startButton.addEventListener("click", () => {
   startCapture();
+  stopButton.disabled = false;
+  startButton.disabled = true;
 });
-
-const stopButton = document.getElementById("stopButton");
 stopButton.addEventListener("click", () => {
   stopCapture();
 });
@@ -44,6 +45,9 @@ async function startCapture() {
 function stopCapture() {
   // Stop the capture (will indirectly trigger ondataavailable of MediaRecorder)
   captureStream.getTracks().map((track) => track.stop());
+
+  startButton.disabled = false;
+  stopButton.disabled = true;
 
   videoElement.srcObject = null;
   captureStream = null;
