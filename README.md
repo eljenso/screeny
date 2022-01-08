@@ -8,6 +8,10 @@ The recording will not leave the user's computer.
 This project avoid using external dependencies to keep it trivial and easy to review.
 All packages listed in `package.json` are for development only.
 
+### Setup
+
+Simply host the `pages` folder, no further setup required
+
 #### Attributions
 
 Icon image from [Twemoji](https://twemoji.twitter.com/)
