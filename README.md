@@ -10,7 +10,7 @@ All packages listed in `package.json` are for development only.
 
 ### Setup
 
-Simply host the `pages` folder, no further setup required
+Simply host the `page` folder, no further setup required
 
 #### Attributions
 
