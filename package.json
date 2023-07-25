@@ -19,6 +19,6 @@
   "homepage": "https://github.com/eljenso/screeny#readme",
   "devDependencies": {
     "eslint": "^8.45.0",
-    "prettier": "^2.5.1"
+    "prettier": "^3.0.0"
   }
 }
